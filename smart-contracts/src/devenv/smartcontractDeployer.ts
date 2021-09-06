@@ -36,6 +36,7 @@ export class SmartContractDeployer extends SynchronousCommand<SmartContractDeplo
 
   resultConverter(r: SynchronousCommandResult): SmartContractDeployResult {
     // This is to handle npx commmand outputting "No need to generate any newer types"
+    console.log("resultConverter(): r=%o", r);
     const jsonOutput = JSON.parse(r.output.split('\n')[1]);
     return new SmartContractDeployResult({
       bridgeBank: jsonOutput.bridgeBank,

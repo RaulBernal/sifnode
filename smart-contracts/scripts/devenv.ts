@@ -70,20 +70,21 @@ async function main() {
       process.on('SIGINT', res);
       process.on('SIGTERM', res);
     });
-    const [hardhat, golang] = (await Promise.all([startHardhat(), golangBuilder()]))
-    const sifnode = await sifnodedBuilder(golang.results);
-    const smartcontract = await smartContractDeployer()
-    const ebrelayer = await ebrelayerBuilder(
-      smartcontract.result.contractAddresses,
-      hardhat.results.accounts.validators[0],
-      sifnode.results.validatorValues[0],
-      golang.results
-    )
+    const hardhat = await startHardhat();
+    // const [hardhat, golang] = (await Promise.all([startHardhat(), golangBuilder()]))
+    // const sifnode = await sifnodedBuilder(golang.results);
+    const smartcontract = await smartContractDeployer();
+    // const ebrelayer = await ebrelayerBuilder(
+    //   smartcontract.result.contractAddresses,
+    //   hardhat.results.accounts.validators[0],
+    //   sifnode.results.validatorValues[0],
+    //   golang.results
+    // )
     await sigterm
     console.log("Caught interrupt signal, cleaning up.");
-    sifnode.process.kill(sifnode.process.pid);
+    // sifnode.process.kill(sifnode.process.pid);
     hardhat.process.kill(hardhat.process.pid);
-    ebrelayer.process.kill(ebrelayer.process.pid);
+    // ebrelayer.process.kill(ebrelayer.process.pid);
     console.log("All child process terminated, goodbye.");
     notify({
       title: "Sifchain DevEnvironment Notice",
