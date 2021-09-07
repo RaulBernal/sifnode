@@ -162,7 +162,7 @@ export class SifnodedRunner extends ShellCommand<SifnodedResults> {
     let child = ChildProcess.execFileSync(
       path.join(this.golangResults.goBin, "sifnoded"),
       sifgenArgs,
-      { input: mnemonic, encoding: "utf8" }
+      { input: mnemonic, encoding: "utf8" }  // @TODO Passing mnemonic to stdin is useless, only "y/n" makes sense
     );
     child
   }
